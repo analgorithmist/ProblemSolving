@@ -3,6 +3,18 @@
  */
 public class BinarySearch {
 
+    /**
+     * Resources:
+     * http://googleresearch.blogspot.in/2006/06/extra-extra-read-all-about-it-nearly.html
+     */
+
+    /**
+     * TODO:
+     * 1) Fibonacci Search
+     * 2) Interpolation Search.
+     */
+
+
     //Problem1: Basic Iterative solution. Uses half the search space, hence log n.
     // just use java.util.Arrays.binarySearch(arr,key); gives the index.
     public int binarySearchIterative(int[] arr, int low, int high, int key){
@@ -116,27 +128,89 @@ public class BinarySearch {
          return arr[0];//careful for this case.
     }
 
+    //problem 8: find the floor in the array
+    //example: {-1, 2, 3, 5, 6, 8, 9, 10}; floor of 7 is 6.
+    public int binarySearchFloor(int[] arr, int low, int high, int key){
+        while(low<=high){ //without equals to condition code  fails.
+           int mid = (low+high)>>1; //fancy..:P
 
+           if(key<=arr[mid]){
+               high=mid-1;
+           }
+           else if(key>arr[mid]){
+               if(arr[mid+1]>=key)
+                   return mid;
+               else
+                    low=mid+1;
+           }
+        }
+        return -1; //all elements greater than key in the array;
+    }
+
+
+    //problem: 9 find the ceil in the array.
+    public int binarySearchCeil(int[] arr, int low, int high, int key){
+        while(low<=high){
+            int mid = (low+high)>>1;
+            if(key<arr[mid]){
+                if(arr[mid-1]<=key)
+                    return mid;
+                else
+                    high=mid-1;
+            }
+            else if(key>=arr[mid]){
+                low=mid+1;
+            }
+        }
+        return -1;
+    }
+
+    //problem 10:
 
 
 
     public void test(){
         int[] arr1 = {1,2,3,4,5,6,7};
+        System.out.println("---------------------prob1----------------");
         System.out.println(binarySearchIterative(arr1, 0, arr1.length - 1, 10));
+
+        System.out.println("---------------------prob2---------------");
         System.out.println(binarySearchRecursive(arr1, 0, arr1.length - 1, 6));//missed arr.length-1, used arr.length instead, case failed.
         int[] arr2 = {1,4,4,4,4,4,4,4,4,4,4,4,4,4,9};
+
+        System.out.println("---------------------prob3----------------");
         System.out.println(binarySearchLowIndex(arr2, 0, arr2.length - 1, 4));
+
+        System.out.println("---------------------prob4----------------");
         System.out.println(binarySearchHighIndex(arr2, 0, arr2.length - 1, 4));
+
+        System.out.println("---------------------prob5----------------");
         System.out.println(findDuplicateCount(arr2, 0, arr2.length - 1, 4));
         int[] arr3 = {10,11,12,13,14,15,0,1,2,};
-        System.out.println(binarySearchRotated(arr3,0,arr3.length-1,1));
+
+        System.out.println("---------------------pro6----------------");
+        System.out.println(binarySearchRotated(arr3, 0, arr3.length - 1, 1));
         int[] arr4= {7,8,0,1,2,3,4,5,6};
 
-        System.out.println(binarySearchRotatedMinimum(arr4,0,arr4.length-1));
-        System.out.println(binarySearchRotatedMinimum(arr3,0,arr3.length-1));
-        System.out.println(binarySearchRotatedMinimum(arr1,0,arr1.length-1));
-        System.out.println(binarySearchRotatedMinimum(arr2,0,arr2.length-1));
-        //whether your code works for duplicates?
+        System.out.println("---------------------prob7----------------");
+        System.out.println(binarySearchRotatedMinimum(arr4, 0, arr4.length - 1));
+        System.out.println(binarySearchRotatedMinimum(arr3, 0, arr3.length - 1));
+        System.out.println(binarySearchRotatedMinimum(arr1, 0, arr1.length - 1));
+        System.out.println(binarySearchRotatedMinimum(arr2,0,arr2.length-1));//duplicates
+
+        int[] arr5 = {-1, 2, 3, 5, 6, 8, 9, 10};
+        System.out.println("---------------------prob8----------------");
+        System.out.println(binarySearchFloor(arr5, 0, arr5.length - 1, 4));;
+        System.out.println(binarySearchFloor(arr5, 0, arr5.length - 1, 2));//what should happen if the key is already present for floor problem: an element lesser than this should be returned.
+        System.out.println(binarySearchFloor(arr5,0,arr5.length-1,-1));System.out.println(binarySearchFloor(arr5, 0, arr5.length - 1, 10));//corner cases
+
+        System.out.println("---------------------prob9----------------");
+        System.out.println(binarySearchCeil(arr5, 0, arr5.length - 1, 4));;
+        System.out.println(binarySearchCeil(arr5, 0, arr5.length - 1, 2));//what should happen if the key is already present for floor problem: an element lesser than this should be returned.
+        System.out.println(binarySearchCeil(arr5, 0, arr5.length - 1, -1));System.out.println(binarySearchCeil(arr5, 0, arr5.length - 1, 10));//corner cases
+
+        System.out.println("---------------------prob10----------------");
+
 
     }
 
@@ -145,3 +219,4 @@ public class BinarySearch {
         b.test();
     }
 }
+
