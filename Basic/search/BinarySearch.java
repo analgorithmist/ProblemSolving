@@ -11,7 +11,7 @@ public class BinarySearch {
     /**
      * TODO:
      * 1) Fibonacci Search
-     * 2) Interpolation Search.
+     * 2) Interpolation Search: under the assumption of a uniform distribution of the data on the linear scale used for interpolation, the performance can be shown to be O(log log N).
      */
 
 
@@ -165,7 +165,20 @@ public class BinarySearch {
         return -1;
     }
 
-    //problem 10:
+    //problem 10: fixed point search. arr[mid]==mid--easy
+
+    public int fixedPointSearch(int[] arr, int low, int high){
+        while(low<=high) {
+            int mid = (low + high) >>> 1;
+            if(mid==arr[mid])
+                return mid;
+            else if(mid<arr[mid])
+                high=mid-1;
+            else
+                low=mid+1;
+        }
+        return -1;
+    }
 
 
 
@@ -176,9 +189,9 @@ public class BinarySearch {
 
         System.out.println("---------------------prob2---------------");
         System.out.println(binarySearchRecursive(arr1, 0, arr1.length - 1, 6));//missed arr.length-1, used arr.length instead, case failed.
-        int[] arr2 = {1,4,4,4,4,4,4,4,4,4,4,4,4,4,9};
 
         System.out.println("---------------------prob3----------------");
+        int[] arr2 = {1,4,4,4,4,4,4,4,4,4,4,4,4,4,9};
         System.out.println(binarySearchLowIndex(arr2, 0, arr2.length - 1, 4));
 
         System.out.println("---------------------prob4----------------");
@@ -186,20 +199,21 @@ public class BinarySearch {
 
         System.out.println("---------------------prob5----------------");
         System.out.println(findDuplicateCount(arr2, 0, arr2.length - 1, 4));
-        int[] arr3 = {10,11,12,13,14,15,0,1,2,};
 
         System.out.println("---------------------pro6----------------");
+        int[] arr3 = {10,11,12,13,14,15,0,1,2,};
         System.out.println(binarySearchRotated(arr3, 0, arr3.length - 1, 1));
-        int[] arr4= {7,8,0,1,2,3,4,5,6};
 
         System.out.println("---------------------prob7----------------");
+        int[] arr4= {7,8,0,1,2,3,4,5,6};
         System.out.println(binarySearchRotatedMinimum(arr4, 0, arr4.length - 1));
         System.out.println(binarySearchRotatedMinimum(arr3, 0, arr3.length - 1));
         System.out.println(binarySearchRotatedMinimum(arr1, 0, arr1.length - 1));
         System.out.println(binarySearchRotatedMinimum(arr2,0,arr2.length-1));//duplicates
 
-        int[] arr5 = {-1, 2, 3, 5, 6, 8, 9, 10};
+
         System.out.println("---------------------prob8----------------");
+        int[] arr5 = {-1, 2, 3, 5, 6, 8, 9, 10};
         System.out.println(binarySearchFloor(arr5, 0, arr5.length - 1, 4));;
         System.out.println(binarySearchFloor(arr5, 0, arr5.length - 1, 2));//what should happen if the key is already present for floor problem: an element lesser than this should be returned.
         System.out.println(binarySearchFloor(arr5,0,arr5.length-1,-1));System.out.println(binarySearchFloor(arr5, 0, arr5.length - 1, 10));//corner cases
@@ -210,7 +224,8 @@ public class BinarySearch {
         System.out.println(binarySearchCeil(arr5, 0, arr5.length - 1, -1));System.out.println(binarySearchCeil(arr5, 0, arr5.length - 1, 10));//corner cases
 
         System.out.println("---------------------prob10----------------");
-
+        int[] arr6 = {-10, -5, 0, 3, 7};
+        System.out.println(fixedPointSearch(arr6,0,arr6.length-1));
 
     }
 
